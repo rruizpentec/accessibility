@@ -34,10 +34,9 @@ M.block_accessibility = {
     transactionsCount: 0, // AJAX transactions.
 
     init: function(Y, autoload_atbar, instance_id) {
-        // Keep in mind that dynamic AJAX mode cannot work properly with IE <= 8 (for now), so this script will not even be loaded in block_accessibillity.php.
-
+        // Keep in mind that dynamic AJAX mode cannot work properly with IE <= 8 (for now), so this script will not even be loaded
+        // in block_accessibillity.php.
         // TO-DO: determine if block is visible (for example in chat session is not).
-
         this.Y = Y;
         this.instance_id = instance_id;
         var link = 'link[href="' + M.cfg.wwwroot + '/blocks/accessibility/userstyles.php?instance_id=' + instance_id + '"]';
@@ -198,13 +197,15 @@ M.block_accessibility = {
             case "block_accessibility_inc":
                 // This.log('Increasing size from ' + this.defaultsize);.
                 Y.io(M.cfg.wwwroot + '/blocks/accessibility/changesize.php', {
-                    data: 'op=inc&cur=' + this.defaultsize, // We need to find a default so we know where we're increasing/decreasing from, otherwise PHP will assume 100%.
+                    // We need to find a default so we know where we're increasing/decreasing from, otherwise PHP will assume 100%.
+                    data: 'op=inc&cur=' + this.defaultsize,                    
                     method: 'get',
                     on: {
                         success: function(id, o) {
                             // If redirected to login page, or some other error...
                             if (!(o.response === undefined) && o.response.length > 0) {
-                                alert(M.util.get_string('jsnotloggedin', 'block_accessibility') + ': ' + o.status + ' ' + o.statusText);
+                                var status = o.status + ' ' + o.statusText;
+                                alert(M.util.get_string('jsnotloggedin', 'block_accessibility') + ': ' + status);
                             }
 
                             // Now that we updated user setting to the server, load updated stylesheet.
@@ -213,7 +214,6 @@ M.block_accessibility = {
                             M.block_accessibility.log('Increasing size to ' + new_fontsize);
 
                             // Disable/enable buttons as necessary.
-                            var min_fontsize = M.block_accessibility.MIN_PX_FONTSIZE;
                             var max_fontsize = M.block_accessibility.MAX_PX_FONTSIZE;
                             if (new_fontsize == M.block_accessibility.defaultsize) {
                                 M.block_accessibility.toggle_textsizer('reset', 'off');
@@ -227,7 +227,8 @@ M.block_accessibility = {
                             M.block_accessibility.toggle_textsizer('save', 'on');
                         },
                         failure: function(o) {
-                            alert(M.util.get_string('jsnosize', 'block_accessibility') + ': ' + o.status + ' ' + o.statusText);
+                            var status = o.status + ' ' + o.statusText;
+                            alert(M.util.get_string('jsnosize', 'block_accessibility') + ': ' + status);
                         },
                         start: M.block_accessibility.show_loading,
                         end: M.block_accessibility.hide_loading
@@ -243,7 +244,8 @@ M.block_accessibility = {
                         success: function(id, o) {
                             // If redirected to login page, or some other error...
                             if (!(o.response === undefined) && o.response.length > 0) {
-                                alert(M.util.get_string('jsnotloggedin', 'block_accessibility') + ': ' + o.status + ' ' + o.statusText);
+                                var status = o.status + ' ' + o.statusText;
+                                alert(M.util.get_string('jsnotloggedin', 'block_accessibility') + ': ' + status);
                             }
 
                             // Now that we updated user setting to the server, load updated stylesheet.
@@ -253,7 +255,6 @@ M.block_accessibility = {
 
                             // Disable/enable buttons as necessary.
                             var min_fontsize = M.block_accessibility.MIN_PX_FONTSIZE;
-                            var max_fontsize = M.block_accessibility.MAX_PX_FONTSIZE;
                             if (new_fontsize == M.block_accessibility.defaultsize) {
                                 M.block_accessibility.toggle_textsizer('reset', 'off');
                             } else {
@@ -266,7 +267,8 @@ M.block_accessibility = {
                             M.block_accessibility.toggle_textsizer('save', 'on');
                         },
                         failure: function(id, o) {
-                            alert(M.util.get_string('jsnosize', 'block_accessibility') + ': ' + o.status + ' ' + o.statusText);
+                            var status = o.status + ' ' + o.statusText;
+                            alert(M.util.get_string('jsnosize', 'block_accessibility') + ': ' + status);
                         },
                         start: M.block_accessibility.show_loading,
                         end: M.block_accessibility.hide_loading
@@ -281,8 +283,9 @@ M.block_accessibility = {
                     on: {
                         success: function(id, o) {
                             // If redirected to login page, or some other error...
-                            if (!(o.response === undefined) && o.response.length > 0) {
-                                alert(M.util.get_string('jsnotloggedin', 'block_accessibility') + ': ' + o.status + ' ' + o.statusText);
+                            if ((!(o.response === undefined)) && o.response.length > 0) {
+                                var status = o.status + ' ' + o.statusText;
+                                alert(M.util.get_string('jsnotloggedin', 'block_accessibility') + ': ' + status);
                             }
 
                             // Now that we updated user setting to the server, load updated stylesheet.
@@ -302,7 +305,8 @@ M.block_accessibility = {
                             M.block_accessibility.toggle_textsizer('save', 'off');
                         },
                         failure: function(id, o) {
-                            alert(M.util.get_string('jsnosize', 'block_accessibility') + ': ' + o.status + ' ' + o.statusText);
+                            var status = o.status + ' ' + o.statusText;
+                            alert(M.util.get_string('jsnosize', 'block_accessibility') + ': ' + status);
                         },
                         start: M.block_accessibility.show_loading,
                         end: M.block_accessibility.hide_loading
@@ -340,8 +344,9 @@ M.block_accessibility = {
             on: {
                 success: function (id, o) {
                     // If redirected to login page, or some other error...
-                    if (!(o.response === undefined) && o.response.length > 0) {
-                        alert(M.util.get_string('jsnotloggedin', 'block_accessibility') + ': ' + o.status + ' ' + o.statusText);
+                    if ((!(o.response === undefined)) && o.response.length > 0) {
+                        var status = o.status + ' ' + o.statusText;
+                        alert(M.util.get_string('jsnotloggedin', 'block_accessibility') + ': ' + status);
                     }
 
                     M.block_accessibility.reload_stylesheet();
@@ -355,7 +360,8 @@ M.block_accessibility = {
                     }
                 },
                 failure: function(id, o) {
-                    alert(get_string('jsnocolour', 'block_accessibility') + ': ' + o.status + ' ' + o.statusText);
+                    var status = o.status + ' ' + o.statusText;
+                    alert(get_string('jsnocolour', 'block_accessibility') + ': ' + status);
                 },
                 start: M.block_accessibility.show_loading,
                 end: M.block_accessibility.hide_loading
@@ -375,7 +381,8 @@ M.block_accessibility = {
                     },
                     failure: function(id, o) {
                         if (o.status != '404') {
-                            alert(M.util.get_string('jsnosave', 'block_accessibility') + ': ' + o.status + ' ' + o.statusText);
+                            var status = o.status + ' ' + o.statusText;
+                            alert(M.util.get_string('jsnosave', 'block_accessibility') + ': ' + status);
                         }
                     },
                     start: M.block_accessibility.show_loading,
@@ -393,7 +400,8 @@ M.block_accessibility = {
                     },
                     failure: function(id, o) {
                         if (o.status != '404') {
-                            alert(M.util.get_string('jsnoreset', 'block_accessibility') + ': ' + o.status + ' ' + o.statusText);
+                            var status = o.status + ' ' + o.statusText;
+                            alert(M.util.get_string('jsnoreset', 'block_accessibility') + ': ' + status);
                         }
                     },
                     start: M.block_accessibility.show_loading,
