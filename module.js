@@ -93,7 +93,9 @@ M.block_accessibility = {
                 Y.one('#block_accessibility_textresize').setStyle('display', 'none');
                 Y.one('#block_accessibility_changecolour').setStyle('display', 'none');
                 // Wait 1 second to give the bar a chance to load.
-                setTimeout("M.block_accessibility.watch_atbar_for_close();", 1000);
+                setTimeout(function () {
+                    M.block_accessibility.watch_atbar_for_close();
+                }, 1000);
             }
         }
     },
@@ -119,7 +121,9 @@ M.block_accessibility = {
 
         // Make message disappear after some time.
         if (msg) {
-            setTimeout("M.block_accessibility.show_message('')", 5000);
+            setTimeout(function () {
+                M.block_accessibility.show_message('');
+            }, 5000);
         }
     },
 
@@ -136,9 +140,8 @@ M.block_accessibility = {
             data: 'op=save&size=true&scheme=true',
             method: 'get',
             on: {
-                success: function(id, o) {
+                success: function() {
                     M.block_accessibility.show_message(M.util.get_string('saved', 'block_accessibility'));
-                    // SetTimeout("M.block_accessibility.show_message('')", 5000);.
                 },
                 failure: function(id, o) {
                     alert(M.util.get_string('jsnosave', 'block_accessibility') + ' ' + o.status + ' ' + o.statusText);
@@ -203,7 +206,7 @@ M.block_accessibility = {
                     on: {
                         success: function(id, o) {
                             // If redirected to login page, or some other error...
-                            if (!(o.response === undefined) && o.response.length > 0) {
+                            if (o.response !== undefined && o.response.length > 0) {
                                 var status = o.status + ' ' + o.statusText;
                                 alert(M.util.get_string('jsnotloggedin', 'block_accessibility') + ': ' + status);
                             }
@@ -243,7 +246,7 @@ M.block_accessibility = {
                     on: {
                         success: function(id, o) {
                             // If redirected to login page, or some other error...
-                            if (!(o.response === undefined) && o.response.length > 0) {
+                            if (o.response !== undefined && o.response.length > 0) {
                                 var status = o.status + ' ' + o.statusText;
                                 alert(M.util.get_string('jsnotloggedin', 'block_accessibility') + ': ' + status);
                             }
@@ -283,7 +286,7 @@ M.block_accessibility = {
                     on: {
                         success: function(id, o) {
                             // If redirected to login page, or some other error...
-                            if ((!(o.response === undefined)) && o.response.length > 0) {
+                            if (o.response !== undefined && o.response.length > 0) {
                                 var status = o.status + ' ' + o.statusText;
                                 alert(M.util.get_string('jsnotloggedin', 'block_accessibility') + ': ' + status);
                             }
@@ -344,7 +347,7 @@ M.block_accessibility = {
             on: {
                 success: function (id, o) {
                     // If redirected to login page, or some other error...
-                    if ((!(o.response === undefined)) && o.response.length > 0) {
+                    if (o.response !== undefined && o.response.length > 0) {
                         var status = o.status + ' ' + o.statusText;
                         alert(M.util.get_string('jsnotloggedin', 'block_accessibility') + ': ' + status);
                     }
@@ -396,7 +399,6 @@ M.block_accessibility = {
                 on: {
                     success: function(id, o) {
                         M.block_accessibility.show_message(M.util.get_string('reset', 'block_accessibility'));
-                        // SetTimeout("M.block_accessibility.show_message('')", 5000);.
                     },
                     failure: function(id, o) {
                         if (o.status != '404') {
@@ -509,7 +511,7 @@ M.block_accessibility = {
             this.transactionsCount = 0;
         }
 
-        if (this.transactionsCount == 0) {
+        if (this.transactionsCount === 0) {
             Y.one('#loader-icon').setStyle('display', 'none');
             Y.one('#accessibility_controls').setStyle('opacity', '1');
         }
